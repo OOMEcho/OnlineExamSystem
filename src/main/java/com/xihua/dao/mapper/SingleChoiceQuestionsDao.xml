@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xihua.dao.SingleChoiceQuestionsDao">
+    <resultMap id="BaseResultMap" type="com.xihua.entity.model.SingleChoiceQuestions">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="answer_a" jdbcType="VARCHAR" property="answerA"/>
+        <result column="answer_b" jdbcType="VARCHAR" property="answerB"/>
+        <result column="answer_c" jdbcType="VARCHAR" property="answerC"/>
+        <result column="answer_d" jdbcType="VARCHAR" property="answerD"/>
+        <result column="right_answer" jdbcType="VARCHAR" property="rightAnswer"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, question, answer_a, answer_b, answer_c, answer_d, right_answer, score
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from single_choice_questions
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from single_choice_questions
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xihua.entity.model.SingleChoiceQuestions"
+            useGeneratedKeys="true">
+    insert into single_choice_questions (question, answer_a, answer_b, 
+      answer_c, answer_d, right_answer, 
+      score)
+    values (#{question,jdbcType=VARCHAR}, #{answerA,jdbcType=VARCHAR}, #{answerB,jdbcType=VARCHAR}, 
+      #{answerC,jdbcType=VARCHAR}, #{answerD,jdbcType=VARCHAR}, #{rightAnswer,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="com.xihua.entity.model.SingleChoiceQuestions" useGeneratedKeys="true">
+        insert into single_choice_questions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="question != null">
+                question,
+            </if>
+            <if test="answerA != null">
+                answer_a,
+            </if>
+            <if test="answerB != null">
+                answer_b,
+            </if>
+            <if test="answerC != null">
+                answer_c,
+            </if>
+            <if test="answerD != null">
+                answer_d,
+            </if>
+            <if test="rightAnswer != null">
+                right_answer,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="question != null">
+                #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answerA != null">
+                #{answerA,jdbcType=VARCHAR},
+            </if>
+            <if test="answerB != null">
+                #{answerB,jdbcType=VARCHAR},
+            </if>
+            <if test="answerC != null">
+                #{answerC,jdbcType=VARCHAR},
+            </if>
+            <if test="answerD != null">
+                #{answerD,jdbcType=VARCHAR},
+            </if>
+            <if test="rightAnswer != null">
+                #{rightAnswer,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xihua.entity.model.SingleChoiceQuestions">
+        update single_choice_questions
+        <set>
+            <if test="question != null">
+                question = #{question,jdbcType=VARCHAR},
+            </if>
+            <if test="answerA != null">
+                answer_a = #{answerA,jdbcType=VARCHAR},
+            </if>
+            <if test="answerB != null">
+                answer_b = #{answerB,jdbcType=VARCHAR},
+            </if>
+            <if test="answerC != null">
+                answer_c = #{answerC,jdbcType=VARCHAR},
+            </if>
+            <if test="answerD != null">
+                answer_d = #{answerD,jdbcType=VARCHAR},
+            </if>
+            <if test="rightAnswer != null">
+                right_answer = #{rightAnswer,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xihua.entity.model.SingleChoiceQuestions">
+    update single_choice_questions
+    set question = #{question,jdbcType=VARCHAR},
+      answer_a = #{answerA,jdbcType=VARCHAR},
+      answer_b = #{answerB,jdbcType=VARCHAR},
+      answer_c = #{answerC,jdbcType=VARCHAR},
+      answer_d = #{answerD,jdbcType=VARCHAR},
+      right_answer = #{rightAnswer,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="queryAllSingleChoice" resultMap="BaseResultMap">
+        select * from single_choice_questions
+    </select>
+</mapper>
