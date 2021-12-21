@@ -27,6 +27,6 @@ public class HelloController {
 
     @GetMapping("/test")
     public JsonResult test(){
-        return JsonResult.success("test");
+        return JsonResult.success("测试");
     }
 }
