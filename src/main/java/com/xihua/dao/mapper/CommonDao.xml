@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xihua.dao.CommonDao">
-
-
+    <resultMap id="Single" type="com.xihua.entity.model.SingleChoiceQuestions">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
+        <result column="answer_a" jdbcType="VARCHAR" property="answerA"/>
+        <result column="answer_b" jdbcType="VARCHAR" property="answerB"/>
+        <result column="answer_c" jdbcType="VARCHAR" property="answerC"/>
+        <result column="answer_d" jdbcType="VARCHAR" property="answerD"/>
+        <result column="right_answer" jdbcType="VARCHAR" property="rightAnswer"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
+    <resultMap id="Multiple" type="com.xihua.entity.model.MultipleChoiceQuestions">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
+        <result column="answer_a" jdbcType="VARCHAR" property="answerA"/>
+        <result column="answer_b" jdbcType="VARCHAR" property="answerB"/>
+        <result column="answer_c" jdbcType="VARCHAR" property="answerC"/>
+        <result column="answer_d" jdbcType="VARCHAR" property="answerD"/>
+        <result column="right_answer" jdbcType="VARCHAR" property="rightAnswer"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
+    <resultMap id="Judge" type="com.xihua.entity.model.JudgmentQuestions">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
+        <result column="right_answer" jdbcType="VARCHAR" property="rightAnswer"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
+    <resultMap id="Fill" type="com.xihua.entity.model.FillQuestions">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
+        <result column="right_answer" jdbcType="VARCHAR" property="rightAnswer"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+    </resultMap>
     <insert id="addExamPaper">
         INSERT INTO paper_manage(exam_id,question_id,question_type)
         VALUES
@@ -15,5 +49,35 @@
     </delete>
     <select id="findExamPaper" resultType="com.xihua.entity.dto.ExamPaperDTO">
         SELECT * FROM paper_manage WHERE exam_id=#{examId}
+    </select>
+    <select id="findUserExam" resultType="com.xihua.entity.dto.ExamInfoDTO">
+        SELECT em.description AS description,eur.score AS score,eur.exam_date AS examDate
+        FROM exam_user_relation eur
+        LEFT JOIN exam_manage em ON eur.exam_id=em.exam_id
+        WHERE user_id=#{userId}
+    </select>
+    <select id="findExamBySingle" resultMap="Single">
+        SELECT scq.*
+        FROM paper_manage pm
+        LEFT JOIN single_choice_questions scq ON pm.question_id=scq.id
+        WHERE pm.question_type=1 AND pm.exam_id=#{examId}
+    </select>
+    <select id="findExamByMultiple" resultMap="Multiple">
+        SELECT mcq.*
+        FROM paper_manage pm
+        LEFT JOIN multiple_choice_questions mcq ON pm.question_id=mcq.id
+        WHERE pm.question_type=3 AND pm.exam_id=#{examId}
+    </select>
+    <select id="findExamByJudge" resultMap="Judge">
+        SELECT jq.*
+        FROM paper_manage pm
+        LEFT JOIN judgment_questions jq ON pm.question_id=jq.id
+        WHERE pm.question_type=2 AND pm.exam_id=#{examId}
+    </select>
+    <select id="findExamByFill" resultMap="Fill">
+        SELECT fq.*
+        FROM paper_manage pm
+        LEFT JOIN fill_questions fq ON pm.question_id=fq.id
+        WHERE pm.question_type=4 AND pm.exam_id=#{examId}
     </select>
 </mapper>

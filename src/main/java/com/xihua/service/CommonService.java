@@ -13,4 +13,8 @@ import java.util.List;
 public interface CommonService {
 
     JsonResult addExamPaper(List<ExamPaperDTO> examPaperDTO);
+
+    JsonResult findUserExamInfo(Integer userId);
+
+    JsonResult queryExamPaperInfo(Integer examId);
 }

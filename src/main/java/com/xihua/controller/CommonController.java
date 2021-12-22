@@ -6,9 +6,7 @@ import com.xihua.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +31,25 @@ public class CommonController {
     @PostMapping(value = "addExamPaper", produces = "application/json;charset=UTF-8")
     public JsonResult addExamPaper(@RequestBody List<ExamPaperDTO> examPaperDTOS) {
         return commonService.addExamPaper(examPaperDTOS);
+    }
+
+    /**
+     * 考试记录
+     *
+     * @param examId 用户id
+     */
+    @ApiOperation("考试记录")
+    @GetMapping(value = "findUserExamInfo", produces = "application/json;charset=UTF-8")
+    public JsonResult findUserExamInfo(Integer examId) {
+        return commonService.findUserExamInfo(examId);
+    }
+
+    /**
+     * 查看考试试卷(参加考试)
+     */
+    @ApiOperation("查看考试试卷(参加考试)")
+    @GetMapping(value = "queryExamPaper/{examId}", produces = "application/json;charset=UTF-8")
+    public JsonResult queryExamPaper(@PathVariable Integer examId) {
+        return commonService.queryExamPaperInfo(examId);
     }
 }
