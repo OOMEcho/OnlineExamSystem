@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xihua.dao.CommonDao">
+
+
+    <insert id="addExamPaper">
+        INSERT INTO paper_manage(exam_id,question_id,question_type)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.examId,jdbcType=INTEGER},#{item.questionId,jdbcType=INTEGER},#{item.questionType,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+    <delete id="deleteExamPaper">
+        DELETE FROM paper_manage WHERE exam_id=#{examId}
+    </delete>
+    <select id="findExamPaper" resultType="com.xihua.entity.dto.ExamPaperDTO">
+        SELECT * FROM paper_manage WHERE exam_id=#{examId}
+    </select>
+</mapper>

@@ -1,7 +1,9 @@
 package com.xihua.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.xihua.dao.CommonDao;
 import com.xihua.dao.ExamManageDao;
+import com.xihua.entity.dto.ExamPaperDTO;
 import com.xihua.entity.model.ExamManage;
 import com.xihua.service.ExamManageService;
 import com.xihua.utils.JsonResult;
@@ -21,6 +23,8 @@ public class ExamMangeServiceImpl implements ExamManageService {
 
     @Autowired
     private ExamManageDao examManageDao;
+    @Autowired
+    private CommonDao commonDao;
 
     @Transactional
     @Override
@@ -58,9 +62,13 @@ public class ExamMangeServiceImpl implements ExamManageService {
             return JsonResult.error("未指定删除数据");
         }
         int delete = examManageDao.deleteByPrimaryKey(examId);
-        if (delete == 0) {
-            return JsonResult.error("删除失败");
+        if (delete != 0) {
+            List<ExamPaperDTO> examPaper = commonDao.findExamPaper(examId);
+            if (ObjectUtil.isNotEmpty(examPaper)) {
+                int i = commonDao.deleteExamPaper(examId);
+            }
+            return JsonResult.success("删除成功");
         }
-        return JsonResult.success("删除成功");
+        return JsonResult.error("删除失败");
     }
 }

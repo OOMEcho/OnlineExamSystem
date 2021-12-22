@@ -27,6 +27,12 @@ public class MultipleChoiceQuestions implements Serializable {
     private String question;
 
     /**
+     * 试题类型
+     */
+    @ApiModelProperty("试题类型")
+    private Integer questionType;
+
+    /**
      * 选项A
      */
     @ApiModelProperty("选项A")
@@ -77,13 +83,14 @@ public class MultipleChoiceQuestions implements Serializable {
         }
         MultipleChoiceQuestions other = (MultipleChoiceQuestions) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getQuestion() == null ? other.getQuestion() == null : this.getQuestion().equals(other.getQuestion()))
-            && (this.getAnswerA() == null ? other.getAnswerA() == null : this.getAnswerA().equals(other.getAnswerA()))
-            && (this.getAnswerB() == null ? other.getAnswerB() == null : this.getAnswerB().equals(other.getAnswerB()))
-            && (this.getAnswerC() == null ? other.getAnswerC() == null : this.getAnswerC().equals(other.getAnswerC()))
-            && (this.getAnswerD() == null ? other.getAnswerD() == null : this.getAnswerD().equals(other.getAnswerD()))
-            && (this.getRightAnswer() == null ? other.getRightAnswer() == null : this.getRightAnswer().equals(other.getRightAnswer()))
-            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()));
+                && (this.getQuestion() == null ? other.getQuestion() == null : this.getQuestion().equals(other.getQuestion()))
+                && (this.getQuestionType() == null ? other.getQuestionType() == null : this.getQuestionType().equals(other.getQuestionType()))
+                && (this.getAnswerA() == null ? other.getAnswerA() == null : this.getAnswerA().equals(other.getAnswerA()))
+                && (this.getAnswerB() == null ? other.getAnswerB() == null : this.getAnswerB().equals(other.getAnswerB()))
+                && (this.getAnswerC() == null ? other.getAnswerC() == null : this.getAnswerC().equals(other.getAnswerC()))
+                && (this.getAnswerD() == null ? other.getAnswerD() == null : this.getAnswerD().equals(other.getAnswerD()))
+                && (this.getRightAnswer() == null ? other.getRightAnswer() == null : this.getRightAnswer().equals(other.getRightAnswer()))
+                && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()));
     }
 
     @Override
@@ -92,6 +99,7 @@ public class MultipleChoiceQuestions implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getQuestion() == null) ? 0 : getQuestion().hashCode());
+        result = prime * result + ((getQuestionType() == null) ? 0 : getQuestionType().hashCode());
         result = prime * result + ((getAnswerA() == null) ? 0 : getAnswerA().hashCode());
         result = prime * result + ((getAnswerB() == null) ? 0 : getAnswerB().hashCode());
         result = prime * result + ((getAnswerC() == null) ? 0 : getAnswerC().hashCode());
@@ -109,6 +117,7 @@ public class MultipleChoiceQuestions implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", question=").append(question);
+        sb.append(", questionType=").append(questionType);
         sb.append(", answerA=").append(answerA);
         sb.append(", answerB=").append(answerB);
         sb.append(", answerC=").append(answerC);

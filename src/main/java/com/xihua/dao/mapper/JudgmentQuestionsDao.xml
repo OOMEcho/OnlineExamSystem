@@ -4,11 +4,12 @@
     <resultMap id="BaseResultMap" type="com.xihua.entity.model.JudgmentQuestions">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
         <result column="right_answer" jdbcType="VARCHAR" property="rightAnswer"/>
         <result column="score" jdbcType="INTEGER" property="score"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, question, right_answer, score
+    id, question,question_type, right_answer, score
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

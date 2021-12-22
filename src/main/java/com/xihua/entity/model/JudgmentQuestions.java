@@ -27,6 +27,12 @@ public class JudgmentQuestions implements Serializable {
     private String question;
 
     /**
+     * 试题类型
+     */
+    @ApiModelProperty("试题类型")
+    private Integer questionType;
+
+    /**
      * 正确答案
      */
     @ApiModelProperty("正确答案")
@@ -54,6 +60,7 @@ public class JudgmentQuestions implements Serializable {
         JudgmentQuestions other = (JudgmentQuestions) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
                 && (this.getQuestion() == null ? other.getQuestion() == null : this.getQuestion().equals(other.getQuestion()))
+                && (this.getQuestionType() == null ? other.getQuestionType() == null : this.getQuestionType().equals(other.getQuestionType()))
                 && (this.getRightAnswer() == null ? other.getRightAnswer() == null : this.getRightAnswer().equals(other.getRightAnswer()))
                 && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()));
     }
@@ -64,6 +71,7 @@ public class JudgmentQuestions implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getQuestion() == null) ? 0 : getQuestion().hashCode());
+        result = prime * result + ((getQuestionType() == null) ? 0 : getQuestionType().hashCode());
         result = prime * result + ((getRightAnswer() == null) ? 0 : getRightAnswer().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         return result;
@@ -77,6 +85,7 @@ public class JudgmentQuestions implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", question=").append(question);
+        sb.append(", questionType=").append(questionType);
         sb.append(", rightAnswer=").append(rightAnswer);
         sb.append(", score=").append(score);
         sb.append(", serialVersionUID=").append(serialVersionUID);

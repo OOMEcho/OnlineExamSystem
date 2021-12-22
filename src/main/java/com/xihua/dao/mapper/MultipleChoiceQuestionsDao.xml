@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="com.xihua.entity.model.MultipleChoiceQuestions">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="question" jdbcType="VARCHAR" property="question"/>
+        <result column="question_type" jdbcType="VARCHAR" property="questionType"/>
         <result column="answer_a" jdbcType="VARCHAR" property="answerA"/>
         <result column="answer_b" jdbcType="VARCHAR" property="answerB"/>
         <result column="answer_c" jdbcType="VARCHAR" property="answerC"/>
@@ -12,7 +13,7 @@
         <result column="score" jdbcType="INTEGER" property="score"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, question, answer_a, answer_b, answer_c, answer_d, right_answer, score
+    id, question,question_type, answer_a, answer_b, answer_c, answer_d, right_answer, score
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
