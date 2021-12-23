@@ -2,6 +2,8 @@ package com.xihua.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xihua.dao.FillQuestionsDao;
 import com.xihua.entity.model.FillQuestions;
 import com.xihua.service.FillQuestionsService;
@@ -75,12 +77,14 @@ public class FillQuestionsServiceImpl implements FillQuestionsService {
     }
 
     @Override
-    public JsonResult queryAllFill() {
+    public JsonResult queryAllFill(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<FillQuestions> fillQuestions = fillQuestionsDao.queryAllFill();
         if (ObjectUtil.isEmpty(fillQuestions)) {
             return JsonResult.error("未查询到数据");
         }
-        return JsonResult.success("查询成功", fillQuestions);
+        PageInfo<FillQuestions> fillQuestionsPageInfo = new PageInfo<>(fillQuestions);
+        return JsonResult.success("查询成功", fillQuestionsPageInfo);
     }
 
 }

@@ -5,6 +5,7 @@ import com.xihua.service.SingleChoiceQuestionsService;
 import com.xihua.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -63,8 +64,13 @@ public class SingleChoiceQuestionsController {
      * 查询所有单选题集合
      */
     @ApiOperation("查询所有单选题集合")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "页数"),
+            @ApiImplicitParam(name = "pageSize", value = "每页个数")
+    })
     @GetMapping(value = "queryAllSingle")
-    public JsonResult queryAllSingle() {
-        return singleChoiceQuestionsService.queryAllSingleChoice();
+    public JsonResult queryAllSingle(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        return singleChoiceQuestionsService.queryAllSingleChoice(pageNum, pageSize);
     }
 }

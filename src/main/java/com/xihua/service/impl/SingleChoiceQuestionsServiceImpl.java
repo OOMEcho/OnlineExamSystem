@@ -2,6 +2,8 @@ package com.xihua.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xihua.dao.SingleChoiceQuestionsDao;
 import com.xihua.entity.model.SingleChoiceQuestions;
 import com.xihua.service.SingleChoiceQuestionsService;
@@ -75,11 +77,13 @@ public class SingleChoiceQuestionsServiceImpl implements SingleChoiceQuestionsSe
     }
 
     @Override
-    public JsonResult queryAllSingleChoice() {
+    public JsonResult queryAllSingleChoice(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<SingleChoiceQuestions> singleChoiceQuestions = singleChoiceQuestionsDao.queryAllSingleChoice();
         if (ObjectUtil.isEmpty(singleChoiceQuestions)) {
             return JsonResult.error("未查询到数据");
         }
-        return JsonResult.success("查询成功", singleChoiceQuestions);
+        PageInfo<SingleChoiceQuestions> singleChoiceQuestionsPageInfo = new PageInfo<>(singleChoiceQuestions);
+        return JsonResult.success("查询成功", singleChoiceQuestionsPageInfo);
     }
 }

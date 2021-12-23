@@ -2,6 +2,8 @@ package com.xihua.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xihua.dao.JudgmentQuestionsDao;
 import com.xihua.entity.model.JudgmentQuestions;
 import com.xihua.service.JudgmentQuestionsService;
@@ -75,12 +77,14 @@ public class JudgmentQuestionsServiceImpl implements JudgmentQuestionsService {
     }
 
     @Override
-    public JsonResult queryAllJudgment() {
+    public JsonResult queryAllJudgment(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<JudgmentQuestions> judgmentQuestions = judgmentQuestionsDao.queryAllJudgment();
         if (ObjectUtil.isEmpty(judgmentQuestions)) {
             return JsonResult.error("未查询到数据");
         }
-        return JsonResult.success("查询成功", judgmentQuestions);
+        PageInfo<JudgmentQuestions> judgmentQuestionsPageInfo = new PageInfo<>(judgmentQuestions);
+        return JsonResult.success("查询成功", judgmentQuestionsPageInfo);
     }
 
 }

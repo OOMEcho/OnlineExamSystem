@@ -5,6 +5,7 @@ import com.xihua.service.ExamManageService;
 import com.xihua.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +35,14 @@ public class ExamManageController {
      * 查询考试列表
      */
     @ApiOperation("查询考试列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "页数"),
+            @ApiImplicitParam(name = "pageSize", value = "每页个数")
+    })
     @GetMapping(value = "queryAllExam", produces = "application/json;charset=UTF-8")
-    public JsonResult queryAllExam() {
-        return examManageService.queryAllExam();
+    public JsonResult queryAllExam(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        return examManageService.queryAllExam(pageNum, pageSize);
     }
 
     /**

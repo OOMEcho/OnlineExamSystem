@@ -5,6 +5,7 @@ import com.xihua.service.FillQuestionsService;
 import com.xihua.utils.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -63,8 +64,13 @@ public class FillQuestionsController {
      * 查询所有填空题集合
      */
     @ApiOperation("查询所有填空题集合")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "页数"),
+            @ApiImplicitParam(name = "pageSize", value = "每页个数")
+    })
     @GetMapping(value = "queryAllFill", produces = "application/json;charset=UTF-8")
-    public JsonResult queryAllFill() {
-        return fillQuestionsService.queryAllFill();
+    public JsonResult queryAllFill(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        return fillQuestionsService.queryAllFill(pageNum, pageSize);
     }
 }

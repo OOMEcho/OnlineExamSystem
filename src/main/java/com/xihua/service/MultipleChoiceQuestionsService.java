@@ -40,6 +40,9 @@ public interface MultipleChoiceQuestionsService {
 
     /**
      * 查询所有多选题集合
+     *
+     * @param pageNum  页数
+     * @param pageSize 每页数据个数
      */
-    JsonResult queryAllMultipleChoice();
+    JsonResult queryAllMultipleChoice(Integer pageNum, Integer pageSize);
 }

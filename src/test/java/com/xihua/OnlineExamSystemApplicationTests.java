@@ -31,7 +31,7 @@ class OnlineExamSystemApplicationTests {
 
     @Test
     public void testSingleChoice() {
-        JsonResult result = singleChoiceQuestionsService.queryAllSingleChoice();
+        JsonResult result = singleChoiceQuestionsService.queryAllSingleChoice(1,2);
         System.out.println(result);
     }
 }

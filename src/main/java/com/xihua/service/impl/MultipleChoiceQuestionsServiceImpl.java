@@ -2,6 +2,8 @@ package com.xihua.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xihua.dao.MultipleChoiceQuestionsDao;
 import com.xihua.entity.model.MultipleChoiceQuestions;
 import com.xihua.service.MultipleChoiceQuestionsService;
@@ -75,12 +77,14 @@ public class MultipleChoiceQuestionsServiceImpl implements MultipleChoiceQuestio
     }
 
     @Override
-    public JsonResult queryAllMultipleChoice() {
+    public JsonResult queryAllMultipleChoice(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<MultipleChoiceQuestions> multipleChoiceQuestions = multipleChoiceQuestionsDao.queryAllMultipleChoice();
         if (ObjectUtil.isEmpty(multipleChoiceQuestions)) {
             return JsonResult.error("未查询到数据");
         }
-        return JsonResult.success("查询成功", multipleChoiceQuestions);
+        PageInfo<MultipleChoiceQuestions> multipleChoiceQuestionsPageInfo = new PageInfo<>(multipleChoiceQuestions);
+        return JsonResult.success("查询成功", multipleChoiceQuestionsPageInfo);
     }
 
 }

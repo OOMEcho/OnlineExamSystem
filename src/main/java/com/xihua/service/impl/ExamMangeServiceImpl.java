@@ -2,6 +2,8 @@ package com.xihua.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xihua.dao.CommonDao;
 import com.xihua.dao.ExamManageDao;
 import com.xihua.entity.dto.ExamPaperDTO;
@@ -38,12 +40,14 @@ public class ExamMangeServiceImpl implements ExamManageService {
     }
 
     @Override
-    public JsonResult queryAllExam() {
+    public JsonResult queryAllExam(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         List<ExamManage> examManages = examManageDao.queryAllExam();
         if (ObjectUtil.isEmpty(examManages)) {
             return JsonResult.error("未查询到数据");
         }
-        return JsonResult.success("查询成功", examManages);
+        PageInfo<ExamManage> examManagePageInfo = new PageInfo<>(examManages);
+        return JsonResult.success("查询成功", examManagePageInfo);
     }
 
     @Transactional

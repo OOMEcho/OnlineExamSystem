@@ -40,6 +40,9 @@ public interface SingleChoiceQuestionsService {
 
     /**
      * 查询所有单选题集合
+     *
+     * @param pageNum  页数
+     * @param pageSize 每页数据个数
      */
-    JsonResult queryAllSingleChoice();
+    JsonResult queryAllSingleChoice(Integer pageNum, Integer pageSize);
 }

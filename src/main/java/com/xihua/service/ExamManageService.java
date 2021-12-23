@@ -19,8 +19,11 @@ public interface ExamManageService {
 
     /**
      * 查询考试列表
+     *
+     * @param pageNum  页数
+     * @param pageSize 每页数据个数
      */
-    JsonResult queryAllExam();
+    JsonResult queryAllExam(Integer pageNum, Integer pageSize);
 
     /**
      * 修改考试内容

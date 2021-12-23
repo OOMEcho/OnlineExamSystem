@@ -40,6 +40,9 @@ public interface FillQuestionsService {
 
     /**
      * 查询所有填空题集合
+     *
+     * @param pageNum  页数
+     * @param pageSize 每页数据个数
      */
-    JsonResult queryAllFill();
+    JsonResult queryAllFill(Integer pageNum, Integer pageSize);
 }
