@@ -44,6 +44,10 @@
             (#{item.examId,jdbcType=INTEGER},#{item.questionId,jdbcType=INTEGER},#{item.questionType,jdbcType=INTEGER})
         </foreach>
     </insert>
+    <insert id="addUserExamRecord">
+        INSERT INTO exam_user_relation(user_id,exam_id,score,exam_date)
+        VALUES (#{userId,jdbcType=INTEGER},#{examId,jdbcType=INTEGER},#{score,jdbcType=INTEGER},#{examDate,jdbcType=TIMESTAMP})
+    </insert>
     <delete id="deleteExamPaper">
         DELETE FROM paper_manage WHERE exam_id=#{examId}
     </delete>

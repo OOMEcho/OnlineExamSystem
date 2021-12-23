@@ -1,5 +1,6 @@
 package com.xihua.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.xihua.dao.CommonDao;
 import com.xihua.dao.ExamManageDao;
@@ -29,6 +30,9 @@ public class ExamMangeServiceImpl implements ExamManageService {
     @Transactional
     @Override
     public JsonResult addExamInfo(ExamManage examManage) {
+        if (BeanUtil.isEmpty(examManage)) {
+            return JsonResult.error("添加的数据为空");
+        }
         examManageDao.insert(examManage);
         return JsonResult.success("添加成功", examManage.getExamId());
     }
@@ -45,7 +49,7 @@ public class ExamMangeServiceImpl implements ExamManageService {
     @Transactional
     @Override
     public JsonResult updateExam(ExamManage examManage) {
-        if (ObjectUtil.isEmpty(examManage.getExamId())) {
+        if (ObjectUtil.isNull(examManage.getExamId())) {
             return JsonResult.error("未指定更新数据");
         }
         int update = examManageDao.updateByPrimaryKeySelective(examManage);
@@ -58,7 +62,7 @@ public class ExamMangeServiceImpl implements ExamManageService {
     @Transactional
     @Override
     public JsonResult deleteExam(Integer examId) {
-        if (ObjectUtil.isEmpty(examId)) {
+        if (ObjectUtil.isNull(examId)) {
             return JsonResult.error("未指定删除数据");
         }
         int delete = examManageDao.deleteByPrimaryKey(examId);

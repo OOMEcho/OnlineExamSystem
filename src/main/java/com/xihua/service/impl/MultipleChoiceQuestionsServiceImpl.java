@@ -1,5 +1,6 @@
 package com.xihua.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.xihua.dao.MultipleChoiceQuestionsDao;
 import com.xihua.entity.model.MultipleChoiceQuestions;
@@ -25,6 +26,9 @@ public class MultipleChoiceQuestionsServiceImpl implements MultipleChoiceQuestio
     @Transactional
     @Override
     public JsonResult addMultipleChoice(MultipleChoiceQuestions questions) {
+        if (BeanUtil.isEmpty(questions)) {
+            return JsonResult.error("新增的数据为空");
+        }
         int insert = multipleChoiceQuestionsDao.insert(questions);
         if (insert == 0) {
             return JsonResult.error("添加失败");
@@ -35,7 +39,7 @@ public class MultipleChoiceQuestionsServiceImpl implements MultipleChoiceQuestio
     @Transactional
     @Override
     public JsonResult deleteMultipleChoice(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定删除数据");
         }
         int delete = multipleChoiceQuestionsDao.deleteByPrimaryKey(id);
@@ -47,11 +51,11 @@ public class MultipleChoiceQuestionsServiceImpl implements MultipleChoiceQuestio
 
     @Override
     public JsonResult queryMultipleChoice(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定查询数据");
         }
         MultipleChoiceQuestions multipleChoiceQuestions = multipleChoiceQuestionsDao.selectByPrimaryKey(id);
-        if (ObjectUtil.isEmpty(multipleChoiceQuestions)) {
+        if (BeanUtil.isEmpty(multipleChoiceQuestions)) {
             return JsonResult.error("未查询到数据");
         }
         return JsonResult.success("查询成功", multipleChoiceQuestions);
@@ -60,7 +64,7 @@ public class MultipleChoiceQuestionsServiceImpl implements MultipleChoiceQuestio
     @Transactional
     @Override
     public JsonResult updateMultipleChoice(MultipleChoiceQuestions questions) {
-        if (ObjectUtil.isEmpty(questions.getId())) {
+        if (ObjectUtil.isNull(questions.getId())) {
             return JsonResult.error("未指定更新数据");
         }
         int update = multipleChoiceQuestionsDao.updateByPrimaryKeySelective(questions);

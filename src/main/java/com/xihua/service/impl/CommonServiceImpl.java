@@ -1,9 +1,11 @@
 package com.xihua.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.xihua.dao.CommonDao;
 import com.xihua.entity.dto.ExamInfoDTO;
 import com.xihua.entity.dto.ExamPaperDTO;
+import com.xihua.entity.dto.ExamUserDTO;
 import com.xihua.entity.model.FillQuestions;
 import com.xihua.entity.model.JudgmentQuestions;
 import com.xihua.entity.model.MultipleChoiceQuestions;
@@ -32,7 +34,23 @@ public class CommonServiceImpl implements CommonService {
     @Transactional
     @Override
     public JsonResult addExamPaper(List<ExamPaperDTO> examPaperDTO) {
+        if (ObjectUtil.isEmpty(examPaperDTO)) {
+            return JsonResult.error("未添加任何试卷");
+        }
         int insert = commonDao.addExamPaper(examPaperDTO);
+        if (insert == 0) {
+            return JsonResult.error("添加失败");
+        }
+        return JsonResult.success("添加成功");
+    }
+
+    @Transactional
+    @Override
+    public JsonResult addUserExamRecord(ExamUserDTO examUserDTO) {
+        if (BeanUtil.isEmpty(examUserDTO)) {
+            return JsonResult.error("新增的考试记录为空");
+        }
+        int insert = commonDao.addUserExamRecord(examUserDTO);
         if (insert == 0) {
             return JsonResult.error("添加失败");
         }
@@ -53,6 +71,9 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public JsonResult queryExamPaperInfo(Integer examId) {
+        if (ObjectUtil.isNull(examId)) {
+            return JsonResult.error("未指定查询考试编号");
+        }
         Map<String, Object> map = new HashMap<>();
         List<SingleChoiceQuestions> examBySingle = commonDao.findExamBySingle(examId);
         if (ObjectUtil.isNotEmpty(examBySingle)) {
@@ -69,6 +90,9 @@ public class CommonServiceImpl implements CommonService {
         List<FillQuestions> examByFill = commonDao.findExamByFill(examId);
         if (ObjectUtil.isNotEmpty(examByFill)) {
             map.put("fill", examByFill);
+        }
+        if (ObjectUtil.isEmpty(map)) {
+            return JsonResult.error("未查询到数据");
         }
         return JsonResult.success("查询成功", map);
     }

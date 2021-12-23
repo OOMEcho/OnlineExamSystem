@@ -1,5 +1,6 @@
 package com.xihua.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.xihua.dao.JudgmentQuestionsDao;
 import com.xihua.entity.model.JudgmentQuestions;
@@ -25,6 +26,9 @@ public class JudgmentQuestionsServiceImpl implements JudgmentQuestionsService {
     @Transactional
     @Override
     public JsonResult addJudgment(JudgmentQuestions questions) {
+        if (BeanUtil.isEmpty(questions)) {
+            return JsonResult.error("新增的数据为空");
+        }
         int insert = judgmentQuestionsDao.insert(questions);
         if (insert == 0) {
             return JsonResult.error("添加失败");
@@ -35,7 +39,7 @@ public class JudgmentQuestionsServiceImpl implements JudgmentQuestionsService {
     @Transactional
     @Override
     public JsonResult deleteJudgment(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定删除数据");
         }
         int delete = judgmentQuestionsDao.deleteByPrimaryKey(id);
@@ -47,11 +51,11 @@ public class JudgmentQuestionsServiceImpl implements JudgmentQuestionsService {
 
     @Override
     public JsonResult queryJudgment(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定查询数据");
         }
         JudgmentQuestions judgmentQuestions = judgmentQuestionsDao.selectByPrimaryKey(id);
-        if (ObjectUtil.isEmpty(judgmentQuestions)) {
+        if (BeanUtil.isEmpty(judgmentQuestions)) {
             return JsonResult.error("未查询到数据");
         }
         return JsonResult.success("查询成功", judgmentQuestions);
@@ -60,7 +64,7 @@ public class JudgmentQuestionsServiceImpl implements JudgmentQuestionsService {
     @Transactional
     @Override
     public JsonResult updateJudgment(JudgmentQuestions questions) {
-        if (ObjectUtil.isEmpty(questions.getId())) {
+        if (ObjectUtil.isNull(questions.getId())) {
             return JsonResult.error("未指定更新数据");
         }
         int update = judgmentQuestionsDao.updateByPrimaryKeySelective(questions);

@@ -2,6 +2,7 @@ package com.xihua.dao;
 
 import com.xihua.entity.dto.ExamInfoDTO;
 import com.xihua.entity.dto.ExamPaperDTO;
+import com.xihua.entity.dto.ExamUserDTO;
 import com.xihua.entity.model.FillQuestions;
 import com.xihua.entity.model.JudgmentQuestions;
 import com.xihua.entity.model.MultipleChoiceQuestions;
@@ -34,4 +35,6 @@ public interface CommonDao {
     List<JudgmentQuestions> findExamByJudge(Integer examId);
 
     List<FillQuestions> findExamByFill(Integer examId);
+
+    int addUserExamRecord(ExamUserDTO examUserDTO);
 }

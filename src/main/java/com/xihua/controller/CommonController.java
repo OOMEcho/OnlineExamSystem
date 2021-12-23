@@ -1,6 +1,7 @@
 package com.xihua.controller;
 
 import com.xihua.entity.dto.ExamPaperDTO;
+import com.xihua.entity.dto.ExamUserDTO;
 import com.xihua.service.CommonService;
 import com.xihua.utils.JsonResult;
 import io.swagger.annotations.Api;
@@ -39,8 +40,8 @@ public class CommonController {
      * @param examId 用户id
      */
     @ApiOperation("考试记录")
-    @GetMapping(value = "findUserExamInfo", produces = "application/json;charset=UTF-8")
-    public JsonResult findUserExamInfo(Integer examId) {
+    @GetMapping(value = "findUserExamInfo/{examId}", produces = "application/json;charset=UTF-8")
+    public JsonResult findUserExamInfo(@PathVariable Integer examId) {
         return commonService.findUserExamInfo(examId);
     }
 
@@ -51,5 +52,16 @@ public class CommonController {
     @GetMapping(value = "queryExamPaper/{examId}", produces = "application/json;charset=UTF-8")
     public JsonResult queryExamPaper(@PathVariable Integer examId) {
         return commonService.queryExamPaperInfo(examId);
+    }
+
+    /**
+     * 新增用户考试记录
+     *
+     * @param examUserDTO 用户考试记录
+     */
+    @ApiOperation("新增用户考试记录")
+    @PostMapping(value = "addUserExamRecord", produces = "application/json;charset=UTF-8")
+    public JsonResult addUserExamRecord(ExamUserDTO examUserDTO) {
+        return commonService.addUserExamRecord(examUserDTO);
     }
 }

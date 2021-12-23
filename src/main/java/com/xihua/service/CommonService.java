@@ -1,6 +1,7 @@
 package com.xihua.service;
 
 import com.xihua.entity.dto.ExamPaperDTO;
+import com.xihua.entity.dto.ExamUserDTO;
 import com.xihua.utils.JsonResult;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface CommonService {
     JsonResult findUserExamInfo(Integer userId);
 
     JsonResult queryExamPaperInfo(Integer examId);
+
+    JsonResult addUserExamRecord(ExamUserDTO examUserDTO);
 }

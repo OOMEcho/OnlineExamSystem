@@ -1,5 +1,6 @@
 package com.xihua.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.xihua.dao.SingleChoiceQuestionsDao;
 import com.xihua.entity.model.SingleChoiceQuestions;
@@ -25,6 +26,9 @@ public class SingleChoiceQuestionsServiceImpl implements SingleChoiceQuestionsSe
     @Transactional
     @Override
     public JsonResult addSingleChoice(SingleChoiceQuestions questions) {
+        if (BeanUtil.isEmpty(questions)) {
+            return JsonResult.error("新增的数据为空");
+        }
         int insert = singleChoiceQuestionsDao.insert(questions);
         if (insert == 0) {
             return JsonResult.error("添加失败");
@@ -35,7 +39,7 @@ public class SingleChoiceQuestionsServiceImpl implements SingleChoiceQuestionsSe
     @Transactional
     @Override
     public JsonResult deleteSingleChoice(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定删除数据");
         }
         int delete = singleChoiceQuestionsDao.deleteByPrimaryKey(id);
@@ -47,11 +51,11 @@ public class SingleChoiceQuestionsServiceImpl implements SingleChoiceQuestionsSe
 
     @Override
     public JsonResult querySingleChoice(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定查询数据");
         }
         SingleChoiceQuestions singleChoiceQuestions = singleChoiceQuestionsDao.selectByPrimaryKey(id);
-        if (ObjectUtil.isEmpty(singleChoiceQuestions)) {
+        if (BeanUtil.isEmpty(singleChoiceQuestions)) {
             return JsonResult.error("未查询到数据");
         }
         return JsonResult.success("查询成功", singleChoiceQuestions);
@@ -60,7 +64,7 @@ public class SingleChoiceQuestionsServiceImpl implements SingleChoiceQuestionsSe
     @Transactional
     @Override
     public JsonResult updateSingleChoice(SingleChoiceQuestions questions) {
-        if (ObjectUtil.isEmpty(questions.getId())) {
+        if (ObjectUtil.isNull(questions.getId())) {
             return JsonResult.error("未指定更新数据");
         }
         int update = singleChoiceQuestionsDao.updateByPrimaryKeySelective(questions);

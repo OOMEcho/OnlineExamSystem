@@ -1,5 +1,6 @@
 package com.xihua.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.xihua.dao.FillQuestionsDao;
 import com.xihua.entity.model.FillQuestions;
@@ -25,6 +26,9 @@ public class FillQuestionsServiceImpl implements FillQuestionsService {
     @Transactional
     @Override
     public JsonResult addFill(FillQuestions questions) {
+        if (BeanUtil.isEmpty(questions)) {
+            return JsonResult.error("添加的数据为空");
+        }
         int insert = fillQuestionsDao.insert(questions);
         if (insert == 0) {
             return JsonResult.error("添加失败");
@@ -35,7 +39,7 @@ public class FillQuestionsServiceImpl implements FillQuestionsService {
     @Transactional
     @Override
     public JsonResult deleteFill(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定删除数据");
         }
         int delete = fillQuestionsDao.deleteByPrimaryKey(id);
@@ -47,11 +51,11 @@ public class FillQuestionsServiceImpl implements FillQuestionsService {
 
     @Override
     public JsonResult queryFill(Integer id) {
-        if (ObjectUtil.isEmpty(id)) {
+        if (ObjectUtil.isNull(id)) {
             return JsonResult.error("未指定查询数据");
         }
         FillQuestions fillQuestions = fillQuestionsDao.selectByPrimaryKey(id);
-        if (ObjectUtil.isEmpty(fillQuestions)) {
+        if (BeanUtil.isEmpty(fillQuestions)) {
             return JsonResult.error("未查询到数据");
         }
         return JsonResult.success("查询成功", fillQuestions);
@@ -60,7 +64,7 @@ public class FillQuestionsServiceImpl implements FillQuestionsService {
     @Transactional
     @Override
     public JsonResult updateFill(FillQuestions questions) {
-        if (ObjectUtil.isEmpty(questions.getId())) {
+        if (ObjectUtil.isNull(questions.getId())) {
             return JsonResult.error("未指定更新数据");
         }
         int update = fillQuestionsDao.updateByPrimaryKeySelective(questions);
