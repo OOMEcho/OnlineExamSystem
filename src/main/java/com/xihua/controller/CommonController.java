@@ -37,12 +37,12 @@ public class CommonController {
     /**
      * 考试记录
      *
-     * @param examId 用户id
+     * @param userId 用户id
      */
     @ApiOperation("考试记录")
-    @GetMapping(value = "findUserExamInfo/{examId}", produces = "application/json;charset=UTF-8")
-    public JsonResult findUserExamInfo(@PathVariable Integer examId) {
-        return commonService.findUserExamInfo(examId);
+    @GetMapping(value = "findUserExamInfo/{userId}", produces = "application/json;charset=UTF-8")
+    public JsonResult findUserExamInfo(@PathVariable Integer userId) {
+        return commonService.findUserExamInfo(userId);
     }
 
     /**
