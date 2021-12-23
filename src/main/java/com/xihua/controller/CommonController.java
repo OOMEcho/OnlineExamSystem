@@ -5,6 +5,7 @@ import com.xihua.entity.dto.ExamUserDTO;
 import com.xihua.service.CommonService;
 import com.xihua.utils.JsonResult;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class CommonController {
      * @param userId 用户id
      */
     @ApiOperation("考试记录")
+    @ApiImplicitParam(name = "userId", value = "用户主键Id", required = true)
     @GetMapping(value = "findUserExamInfo/{userId}", produces = "application/json;charset=UTF-8")
     public JsonResult findUserExamInfo(@PathVariable Integer userId) {
         return commonService.findUserExamInfo(userId);
@@ -49,6 +51,7 @@ public class CommonController {
      * 查看考试试卷(参加考试)
      */
     @ApiOperation("查看考试试卷(参加考试)")
+    @ApiImplicitParam(name = "examId", value = "考试编号", required = true)
     @GetMapping(value = "queryExamPaper/{examId}", produces = "application/json;charset=UTF-8")
     public JsonResult queryExamPaper(@PathVariable Integer examId) {
         return commonService.queryExamPaperInfo(examId);
