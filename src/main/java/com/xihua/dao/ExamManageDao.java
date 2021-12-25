@@ -20,4 +20,6 @@ public interface ExamManageDao {
     int updateByPrimaryKey(ExamManage record);
 
     List<ExamManage> queryAllExam();
+
+    ExamManage findExamById(Integer examId);
 }

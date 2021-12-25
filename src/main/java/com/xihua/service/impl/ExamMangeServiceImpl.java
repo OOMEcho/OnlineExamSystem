@@ -29,6 +29,15 @@ public class ExamMangeServiceImpl implements ExamManageService {
     @Autowired
     private CommonDao commonDao;
 
+    @Override
+    public JsonResult findExamById(Integer examId) {
+        if (ObjectUtil.isNull(examId)) {
+            return JsonResult.error("考试编号不能为空");
+        }
+        ExamManage exam = examManageDao.findExamById(examId);
+        return JsonResult.success("查询成功", exam);
+    }
+
     @Transactional
     @Override
     public JsonResult addExamInfo(ExamManage examManage) {

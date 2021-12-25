@@ -89,4 +89,7 @@
     <select id="queryAllExam" resultMap="BaseResultMap">
         SELECT * FROM exam_manage
     </select>
+    <select id="findExamById" resultMap="BaseResultMap">
+        SELECT * FROM exam_manage WHERE exam_id=#{examId}
+    </select>
 </mapper>

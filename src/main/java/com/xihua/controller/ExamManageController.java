@@ -32,6 +32,18 @@ public class ExamManageController {
     }
 
     /**
+     * 根据考试编号查询考试信息
+     *
+     * @param examId 考试编号
+     */
+    @ApiOperation("根据考试编号查询考试信息")
+    @ApiImplicitParam(name = "examId", value = "考试编号", required = true)
+    @GetMapping(value = "findExamById/{examId}", produces = "application/json;charset=UTF-8")
+    public JsonResult findExamById(@PathVariable Integer examId) {
+        return examManageService.findExamById(examId);
+    }
+
+    /**
      * 查询考试列表
      */
     @ApiOperation("查询考试列表")

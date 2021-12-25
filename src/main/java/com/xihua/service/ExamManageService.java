@@ -38,4 +38,11 @@ public interface ExamManageService {
      * @param examId 考试编号
      */
     JsonResult deleteExam(Integer examId);
+
+    /**
+     * 根据考试编号查询考试信息
+     *
+     * @param examId 考试编号
+     */
+    JsonResult findExamById(Integer examId);
 }
