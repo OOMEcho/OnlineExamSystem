@@ -74,22 +74,22 @@ public class CommonServiceImpl implements CommonService {
         if (ObjectUtil.isNull(examId)) {
             return JsonResult.error("未指定查询考试编号");
         }
-        Map<String, Object> map = new HashMap<>();
+        Map<Integer, Object> map = new HashMap<>();
         List<SingleChoiceQuestions> examBySingle = commonDao.findExamBySingle(examId);
         if (ObjectUtil.isNotEmpty(examBySingle)) {
-            map.put("single", examBySingle);
+            map.put(1, examBySingle);
         }
         List<JudgmentQuestions> examByJudge = commonDao.findExamByJudge(examId);
         if (ObjectUtil.isNotEmpty(examByJudge)) {
-            map.put("judge", examByJudge);
+            map.put(2, examByJudge);
         }
         List<MultipleChoiceQuestions> examByMultiple = commonDao.findExamByMultiple(examId);
         if (ObjectUtil.isNotEmpty(examByMultiple)) {
-            map.put("multiple", examByMultiple);
+            map.put(3, examByMultiple);
         }
         List<FillQuestions> examByFill = commonDao.findExamByFill(examId);
         if (ObjectUtil.isNotEmpty(examByFill)) {
-            map.put("fill", examByFill);
+            map.put(4, examByFill);
         }
         if (ObjectUtil.isEmpty(map)) {
             return JsonResult.error("未查询到数据");
