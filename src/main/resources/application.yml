@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://106.15.248.131:3306/online_exam_system?serverTimezone=Asia/Shanghai&useSSL=false
+    url: jdbc:mysql:///online_exam_system?serverTimezone=Asia/Shanghai&useSSL=false
     username: root
     password: leixuesong
 mybatis:
